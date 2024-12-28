@@ -10,12 +10,15 @@
       ./configRef/java.nix
       ./configRef/node_js.nix
       ./configRef/c-compiler.nix
+      ./configRef/vscode_server.nix
       ({ config, pkgs, ... }: let _ = builtins.trace "Loading additional configuration" "from imported files"; in {})
     ];
   
     environment.systemPackages = with pkgs; let
+        pkgs_stable = inputs.nixpkgs_stable.legacyPackages.x86_64-linux;
     in [
         wget
+        pkgs_stable.neovim
         git
         dialog
         ripgrep
