@@ -17,6 +17,9 @@
     environment.systemPackages = with pkgs; let
         pkgs_stable = inputs.nixpkgs_stable.legacyPackages.x86_64-linux;
     in [
+        tree
+        gcc
+        libgcc
         wget
         pkgs_stable.neovim
         git
