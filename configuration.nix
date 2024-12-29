@@ -2,31 +2,25 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
-    imports =
+  imports =
     [ 
-      ./configRef/java.nix
+      ./configRef/java.nix 
       ./configRef/node_js.nix
-      ./configRef/c-compiler.nix
       ./configRef/vscode_server.nix
-      ({ config, pkgs, ... }: let _ = builtins.trace "Loading additional configuration" "from imported files"; in {})
+      ./configRef/c-compiler.nix
     ];
   
-    environment.systemPackages = with pkgs; let
-        pkgs_stable = inputs.nixpkgs_stable.legacyPackages.x86_64-linux;
-    in [
-        tree
-        gcc
-        libgcc
-        wget
-        pkgs_stable.neovim
-        git
-        dialog
-        ripgrep
-        unzip
-    ];
+  environment.systemPackages = with pkgs; [
+    wget
+    git
+    neovim
+    dialog
+    ripgrep
+    unzip
+  ];
 
   # Allow un-free package
   nixpkgs.config = {
@@ -41,6 +35,7 @@
   ];
 
   nix.settings.experimental-features = ["nix-command" "flakes"];
-  services.openssh.enable = true;
-}
 
+  services.openssh.enable = true;
+
+}

@@ -27,7 +27,7 @@
         };
  
         devShells.x86_64-linux.rust = let 
-            overrides = (builtins.fromTOML (builtins.readFile /home/nixos/flake/utils/rust-toolchain.toml));
+            overrides = (builtins.fromTOML (builtins.readFile "${toString ./utils/rust-toolchain.toml}"));
             libPath = with pkgs; lib.makeLibraryPath [
               # load external libraries that you need in your rust project here
             ];
@@ -68,7 +68,7 @@
                     system.stateVersion = "24.05";
                     wsl.enable = true;
                 }
-            ./configuration.nix
+                ./configuration.nix
             ];
         };
     };
