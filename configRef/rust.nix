@@ -1,7 +1,4 @@
 { pkgs, ... }: {
 
- environment.systemPackages = with pkgs; [
-    rustup
-    cargo
-  ];
+  environment.systemPackages = with pkgs; [ rustup cargo ];
 }

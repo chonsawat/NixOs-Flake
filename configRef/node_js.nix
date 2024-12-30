@@ -1,7 +1,4 @@
 { pkgs, ... }: {
 
- environment.systemPackages = with pkgs; [
-    bun
-    nodejs_22
-  ];
+  environment.systemPackages = with pkgs; [ bun nodejs_22 ];
 }

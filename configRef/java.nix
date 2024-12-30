@@ -1,6 +1,6 @@
 { pkgs, ... }: {
 
- environment.systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     # Java Spring Boot
     maven
     spring-boot-cli

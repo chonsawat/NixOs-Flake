@@ -5,14 +5,13 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ 
-      ./configRef/java.nix 
-      ./configRef/node_js.nix
-      ./configRef/vscode_server.nix
-      ./configRef/c-compiler.nix
-    ];
-  
+  imports = [
+    ./configRef/java.nix
+    ./configRef/node_js.nix
+    ./configRef/vscode_server.nix
+    ./configRef/c-compiler.nix
+  ];
+
   environment.systemPackages = with pkgs; [
     wget
     git
@@ -20,21 +19,21 @@
     dialog
     ripgrep
     unzip
+    gnumake
   ];
 
   # Allow un-free package
-  nixpkgs.config = {
-    allowUnfree = true;
-  };
+  nixpkgs.config = { allowUnfree = true; };
 
   # Nix-ld
   programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    # Add any missing dynamic libraries for unpackaged programs
-    # here, NOT in environment.systemPackages
-  ];
+  programs.nix-ld.libraries = with pkgs;
+    [
+      # Add any missing dynamic libraries for unpackaged programs
+      # here, NOT in environment.systemPackages
+    ];
 
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   services.openssh.enable = true;
 
