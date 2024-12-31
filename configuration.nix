@@ -15,6 +15,8 @@
   environment.systemPackages = with pkgs; [
     wget
     git
+    gh
+    libgit2
     neovim
     dialog
     ripgrep
@@ -31,6 +33,7 @@
     [
       # Add any missing dynamic libraries for unpackaged programs
       # here, NOT in environment.systemPackages
+      pkgs.libgit2
     ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
