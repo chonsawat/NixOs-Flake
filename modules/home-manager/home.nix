@@ -18,6 +18,18 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
+
+    # Required for neovim as editor
+    pkgs.wget
+    pkgs.gh
+    pkgs.libgit2
+    pkgs.dialog
+    pkgs.ripgrep
+    pkgs.unzip
+    pkgs.gnumake
+    pkgs.zig
+    pkgs.tree
+
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
@@ -73,14 +85,31 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
-    GEMINI_API_KEY = "";
+    GEMINI_API_KEY = "AIzaSyB2TKmx0pjELg6aEAmtkYCNkSx0o7mUfHA";
   };
 
   # Chonsawat add new Programs
+  programs.git.enable = true;
+  programs.git.userName = "chonsawat";
+  programs.git.userEmail = "chonsawat.nakanam@kkumail.com";
+
   programs.fzf.enable = true;
   programs.starship.enable = true;
+
   programs.bash.enable = true;
+  programs.bash.enableCompletion = true; 
+  programs.bash.bashrcExtra = ''
+    alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
+    alias nvim-nvchad="NVIM_APPNAME=NvChad nvim"
+  '';
+  programs.bash.shellAliases = {
+      vi="nvim";
+      vim="nvim";
+  };
+
   programs.neovim.enable = true;
+
+  services.ssh-agent.enable = true;
 
   nixpkgs.config = {
     allowUnfreePredicate = pkg:

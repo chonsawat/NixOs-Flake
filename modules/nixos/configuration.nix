@@ -6,26 +6,25 @@
 
 {
   imports = [
-    ../../modules/nixos/java.nix
-    ../../modules/nixos/node_js.nix
-    ../../modules/nixos/vscode_server.nix
-    ../../modules/nixos/c-compiler.nix
+    ../../pkgs/java.nix
+    ../../pkgs/node_js.nix
+    ../../pkgs/vscode_server.nix
+    ../../pkgs/c-compiler.nix
   ];
 
   environment.systemPackages = with pkgs; [
-    wget
-    git
-    gh
-    libgit2
-    neovim
-    dialog
-    ripgrep
-    unzip
-    gnumake
-
-    zig
-    tree
-    home-manager
+    # wget
+    # git
+    # gh
+    # libgit2
+    # dialog
+    # ripgrep
+    # unzip
+    # gnumake
+    #
+    # zig
+    # tree
+    # home-manager
   ];
 
   environment.variables = { };
@@ -36,19 +35,19 @@
   };
 
   # Allow un-free package
-  nixpkgs.config = { allowUnfree = true; };
+  # nixpkgs.config = { allowUnfree = true; };
 
   # Nix-ld
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs;
-    [
-      # Add any missing dynamic libraries for unpackaged programs
-      # here, NOT in environment.systemPackages
-      libgit2
-    ];
+  # programs.nix-ld.enable = true;
+  # programs.nix-ld.libraries = with pkgs;
+  #   [
+  #     # Add any missing dynamic libraries for unpackaged programs
+  #     # here, NOT in environment.systemPackages
+  #     libgit2
+  #   ];
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  services.openssh.enable = true;
+  # services.openssh.enable = true;
 
 }

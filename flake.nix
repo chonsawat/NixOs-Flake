@@ -9,11 +9,14 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
+    nix-ld = {
+      url = "github:Mic92/nix-ld";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
-    { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, ... }@inputs:
+    { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, nix-ld, ... }@inputs:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgs_unfree = import nixpkgs {
@@ -69,14 +72,18 @@
             system.stateVersion = "24.05";
             wsl.enable = true;
           }
-          ./host/default/configuration.nix
+          home-manager.nixosModules.home-manager
+          {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.nixos = import ./modules/home-manager/home.nix;
+          }
+          nix-ld.nixosModules.nix-ld
+          {
+              programs.nix-ld.dev.enable = true;
+          }
+          ./modules/nixos/configuration.nix
         ];
-      };
-
-      homeConfigurations."nixos" = home-manager.lib.homeManagerConfiguration {
-        inherit pkgs;
-
-        modules = [ ./host/default/home.nix ];
       };
 
     };
