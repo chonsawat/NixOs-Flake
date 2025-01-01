@@ -5,9 +5,15 @@
     nixpkgs = { url = "github:nixos/nixpkgs?ref=nixos-unstable"; };
     nixpkgs_stable = { url = "github:nixos/nixpkgs?ref=nixos-24.05"; };
     nixos-wsl.url = "github:nix-community/NixOS-WSL/main";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
   };
 
-  outputs = { self, nixpkgs, nixpkgs_stable, nixos-wsl, ... }@inputs:
+  outputs =
+    { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, ... }@inputs:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgs_unfree = import nixpkgs {
@@ -17,8 +23,7 @@
       pkgs_stable = nixpkgs_stable.legacyPackages.x86_64-linux;
     in {
 
-      devShells.x86_64-linux.default =
-        pkgs.mkShell { buildInputs = [ ]; };
+      devShells.x86_64-linux.default = pkgs.mkShell { buildInputs = [ ]; };
 
       devShells.x86_64-linux.discord =
         pkgs.mkShell { buildInputs = [ pkgs_unfree.discord ]; };
@@ -57,15 +62,22 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
+        specialArgs = { inherit inputs home-manager; };
         modules = [
           nixos-wsl.nixosModules.default
           {
             system.stateVersion = "24.05";
             wsl.enable = true;
           }
-          ./configuration.nix
+          ./host/default/configuration.nix
         ];
       };
+
+      homeConfigurations."nixos" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+
+        modules = [ ./home.nix ];
+      };
+
     };
 }

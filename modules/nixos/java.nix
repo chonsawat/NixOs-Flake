@@ -5,6 +5,7 @@
     maven
     spring-boot-cli
     jdk
+    vscode-extensions.vscjava.vscode-java-debug
     # temurin-jre-bin-20
     # temurin-jre-bin-8
     # temurin-jre-bin-11
