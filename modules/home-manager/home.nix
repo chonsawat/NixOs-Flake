@@ -97,14 +97,14 @@
   programs.starship.enable = true;
 
   programs.bash.enable = true;
-  programs.bash.enableCompletion = true; 
+  programs.bash.enableCompletion = true;
   programs.bash.bashrcExtra = ''
     alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
     alias nvim-nvchad="NVIM_APPNAME=NvChad nvim"
   '';
   programs.bash.shellAliases = {
-      vi="nvim";
-      vim="nvim";
+    vi = "nvim";
+    vim = "nvim";
   };
 
   programs.neovim.enable = true;

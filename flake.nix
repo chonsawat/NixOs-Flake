@@ -15,8 +15,8 @@
     };
   };
 
-  outputs =
-    { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, nix-ld, ... }@inputs:
+  outputs = { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, nix-ld
+    , ... }@inputs:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgs_unfree = import nixpkgs {
@@ -74,14 +74,12 @@
           }
           home-manager.nixosModules.home-manager
           {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.nixos = import ./modules/home-manager/home.nix;
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.nixos = import ./modules/home-manager/home.nix;
           }
           nix-ld.nixosModules.nix-ld
-          {
-              programs.nix-ld.dev.enable = true;
-          }
+          { programs.nix-ld.dev.enable = true; }
           ./modules/nixos/configuration.nix
         ];
       };

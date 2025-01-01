@@ -12,20 +12,21 @@
     ../../pkgs/c-compiler.nix
   ];
 
-  environment.systemPackages = with pkgs; [
-    # wget
-    # git
-    # gh
-    # libgit2
-    # dialog
-    # ripgrep
-    # unzip
-    # gnumake
-    #
-    # zig
-    # tree
-    # home-manager
-  ];
+  environment.systemPackages = with pkgs;
+    [
+      # wget
+      # git
+      # gh
+      # libgit2
+      # dialog
+      # ripgrep
+      # unzip
+      # gnumake
+      #
+      # zig
+      # tree
+      # home-manager
+    ];
 
   environment.variables = { };
 
