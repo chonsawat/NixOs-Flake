@@ -21,6 +21,7 @@
     # # Adds the 'hello' command to your environment. It prints a friendly
     # # "Hello, world!" when run.
     # pkgs.hello
+    pkgs.firefox
 
     # # It is sometimes useful to fine-tune packages, for example, by applying
     # # overrides. You can do that directly here, just don't forget the
@@ -49,6 +50,9 @@
     #   org.gradle.console=verbose
     #   org.gradle.daemon.idletimeout=3600000
     # '';
+
+    # Wait for understand
+    # ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "/home/nixos/.config/nvim";
   };
 
   # Home Manager can also manage your environment variables through
@@ -70,6 +74,17 @@
   home.sessionVariables = {
     # EDITOR = "emacs";
     GEMINI_API_KEY = "";
+  };
+
+  # Chonsawat add new Programs
+  programs.fzf.enable = true;
+  programs.starship.enable = true;
+  programs.bash.enable = true;
+  programs.neovim.enable = true;
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg:
+      builtins.elem (pkgs.lib.getName pkg) [ "discord" ];
   };
 
   # Let Home Manager install and manage itself.
