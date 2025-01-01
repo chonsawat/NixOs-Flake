@@ -69,7 +69,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
-    GEMINI_API_KEY = "AIzaSyB2TKmx0pjELg6aEAmtkYCNkSx0o7mUfHA";
+    GEMINI_API_KEY = "";
   };
 
   # Let Home Manager install and manage itself.
