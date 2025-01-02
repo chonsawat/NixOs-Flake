@@ -80,6 +80,19 @@ in {
 
     # Plugins Snack
     plugins.snacks.enable = true;
+    plugins.snacks.settings = {
+      bigfile = { enabled = false; };
+      statuscolumn = { enabled = false; };
+      words = {
+        enabled = true;
+        debounce = 100;
+      };
+      quickfile = { enabled = false; };
+      notifier = {
+        enabled = true;
+        timeout = 3000;
+      };
+    };
 
     # Plugins nvim-cmp
     plugins.cmp = {
@@ -95,6 +108,12 @@ in {
     # Plugin neoscroll
     plugins.neoscroll.enable = true;
     plugins.neoscroll.autoLoad = true;
+    plugins.neoscroll.settings = {
+      mappings =
+        [ "<C-u>" "<C-d>" "<C-b>" "<C-f>" "<C-y>" "zt" "zz" "zb" "G" "gg" ];
+      easing_function = "easing";
+      performance_mode = true;
+    };
 
     # Dashboard
     plugins.dashboard.enable = true;
@@ -128,6 +147,18 @@ in {
         line = "<leader>/";
         block = "<leader>/";
       };
+    };
+
+    # Floaterm
+    plugins.floaterm.enable = true;
+    plugins.floaterm.settings = {
+      wintype = "float";
+      position = "bottomright";
+      keymap_new = "<Leader>ft";
+      keymap_prev = "<Leader>fp";
+      keymap_next = "<Leader>fn";
+      keymap_toggle = "<Leader>t";
+      keymap_kill = "<Leader>fk";
     };
 
   };
