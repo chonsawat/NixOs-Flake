@@ -6,34 +6,17 @@
 
 {
   imports = [
-    ../../pkgs/java.nix
-    ../../pkgs/node_js.nix
-    ../../pkgs/vscode_server.nix
-    ../../pkgs/c-compiler.nix
+    ../../pkgs/code/java.nix
+    ../../pkgs/code/node_js.nix
+    ../../pkgs/code/vscode_server.nix
+    ../../pkgs/code/c-compiler.nix
   ];
 
-  environment.systemPackages = with pkgs;
-    [
-      # wget
-      # git
-      # gh
-      # libgit2
-      # dialog
-      # ripgrep
-      # unzip
-      # gnumake
-      #
-      # zig
-      # tree
-      # home-manager
-    ];
+  environment.systemPackages = with pkgs; [ wget git unzip tree home-manager ];
 
   environment.variables = { };
 
-  environment.shellAliases = {
-    nvim-bk = "NVIM_APPNAME=Backup-nvim nvim";
-    nvim-nvchad = "NVIM_APPNAME=NvChad nvim";
-  };
+  environment.shellAliases = { };
 
   # Allow un-free package
   # nixpkgs.config = { allowUnfree = true; };
