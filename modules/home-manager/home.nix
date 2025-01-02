@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ../../pkgs/nvim ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";
@@ -105,87 +106,9 @@
     vim = "nvim";
   };
 
+  # Nixvim Config
   programs.nixvim.enable = true;
   programs.nixvim.viAlias = true;
-  programs.nixvim.extraPackages = with pkgs; [ wl-clipboard ];
-  programs.nixvim.extraConfigLua = ''
-    ${builtins.readFile ../../nvim/keymaps.lua}
-    ${builtins.readFile ../../nvim/options.lua}
-  '';
-  programs.nixvim.colorschemes.cyberdream.enable = true;
-  programs.nixvim.colorschemes.cyberdream.settings = { transparent = true; };
-  # programs.nixvim = let
-  #   toLua = str: ''
-  #     lua << EOF
-  #     ${str}
-  #     EOF
-  #   '';
-  #   toLuaFile = file: ''
-  #     lua << EOF
-  #     ${builtins.readFile file}
-  #     EOF
-  #   '';
-  # in {
-  #   enable = true;
-  #
-  #   viAlias = true;
-  #   vimAlias = true;
-  #
-  #   extraPackages = with pkgs; [ wl-clipboard ];
-  #
-  #   extraConfigLua = ''
-  #     ${builtins.readFile ../../nvim/keymaps.lua}
-  #     ${builtins.readFile ../../nvim/options.lua}
-  #   '';
-  #
-  #   plugins = with pkgs.vimPlugins; [
-  #
-  #     {
-  #       plugin = cyberdream-nvim;
-  #       config = toLuaFile ../../nvim/plugins/cyberdream.lua;
-  #     }
-  #
-  #     neodev-nvim
-  #     comment-nvim
-  #
-  #     {
-  #       plugin = telescope-nvim;
-  #       config = toLuaFile ../../nvim/plugins/telescope.lua;
-  #     }
-  #     telescope-fzf-native-nvim
-  #
-  #     cmp_luasnip
-  #     cmp-nvim-lsp
-  #
-  #     vim-nix
-  #
-  #     nvim-cmp
-  #     {
-  #       plugin = nvim-tree-lua;
-  #       config = toLuaFile ../../nvim/plugins/nvim-tree.lua;
-  #     }
-  #     nvim-lspconfig
-  #     {
-  #       plugin = vim-floaterm;
-  #       config = toLuaFile ../../nvim/plugins/floaterm.lua;
-  #     }
-  #
-  #     luasnip
-  #     lualine-nvim
-  #
-  #     friendly-snippets
-  #     nvim-web-devicons
-  #
-  #     (nvim-treesitter.withPlugins (p: [
-  #       p.tree-sitter-nix
-  #       p.tree-sitter-bash
-  #       p.tree-sitter-vim
-  #       p.tree-sitter-lua
-  #       p.tree-sitter-json
-  #     ]))
-  #
-  #   ];
-  # };
 
   services.ssh-agent.enable = true;
 

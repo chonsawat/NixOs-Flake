@@ -34,10 +34,6 @@ Map("t", "<C-Down>", "<cmd>resize +2<CR>")
 Map("t", "<C-Left>", "<cmd>vertical resize -2<CR>")
 Map("t", "<C-Right>", "<cmd>vertical resize +2<CR>")
 
--- Diagnostic
-vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, {desc = "Diagnostic goto [Prev]"})
-vim.keymap.set("n", "]d", vim.diagnostic.goto_next, {desc = "Diagnostic goto [Next]"})
-
 -- Split
 vim.keymap.set("n", "<leader>wv", ":vsplit<cr>", {desc = "[W]indow Split [V]ertical"})
 vim.keymap.set("n", "<leader>wh", ":split<cr>", {desc = "[W]indow Split [H]orizontal"})
