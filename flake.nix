@@ -13,14 +13,10 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    nixvim = {
-      url = "github:nix-community/nixvim";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, nix-ld
-    , nixvim, ... }@inputs:
+    , ... }@inputs:
     let
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgs_unfree = import nixpkgs {
@@ -69,7 +65,7 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs home-manager nixvim; };
+        specialArgs = { inherit inputs home-manager ; };
         modules = [
           nixos-wsl.nixosModules.default
           {
@@ -83,7 +79,6 @@
             home-manager.useUserPackages = true;
             home-manager.users.nixos = {
               imports = [
-                nixvim.homeManagerModules.nixvim
                 ./modules/home-manager/home.nix
               ];
 
@@ -99,7 +94,6 @@
         nixos = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
           modules = [
-            nixvim.homeManagerModules.nixvim
             ./modules/home-manager/home.nix
           ];
         };
