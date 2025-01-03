@@ -8,7 +8,7 @@
       # Telescope
       {
         action = "<cmd>Telescope keymaps<CR>";
-        key = "<leader>fk";
+        key = "<leader>fK";
       }
 
       # NvimTree
@@ -23,28 +23,34 @@
 
       # Fugitive
       {
-        key = "<cmd>Git blame<CR>";
-        action = "<leader>gb";
+        action = "<cmd>Git blame<CR>";
+        key = "<leader>gb";
       }
       {
-        key = "<cmd>Git add .<CR>";
-        action = "<leader>gA";
+        action = "<cmd>Git add .<CR>";
+        key = "<leader>gA";
       }
       {
-        key = "<cmd>Git blame<CR>";
-        action = "<leader>gb";
+        action = "<cmd>Git blame<CR>";
+        key = "<leader>gb";
       }
       {
-        key = "<cmd>Git commit<CR>";
-        action = "<leader>gc";
+        action = "<cmd>Git commit<CR>";
+        key = "<leader>gc";
       }
       {
-        key = "<cmd>Git push<CR>";
-        action = "<leader>gp";
+        action = "<cmd>Git push<CR>";
+        key = "<leader>gp";
       }
       {
-        key = "<cmd>Git status<CR>";
-        action = "<leader>gS";
+        action = "<cmd>Git status<CR>";
+        key = "<leader>gS";
+      }
+
+      # None-LS
+      {
+        key = "<leader>cf";
+        action = "vim.lsp.buf.format";
       }
     ];
   };

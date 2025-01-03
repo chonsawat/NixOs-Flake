@@ -22,14 +22,38 @@ in {
     extraConfigLua = ''
       ${builtins.readFile ./config/keymaps.lua}
       ${builtins.readFile ./config/options.lua}
+
+      ${builtins.readFile ./config/plugins/indent-blank.lua}
+      ${builtins.readFile ./config/plugins/floaterm.lua}
     '';
 
     # Colorscheme
     colorschemes.cyberdream.enable = true;
-    colorschemes.cyberdream.settings = { transparent = true; };
+    colorschemes.cyberdream.settings = {
+      borderless_telescope = true;
+      hide_fillchars = true;
+      italic_comments = true;
+      terminal_colors = true;
+      theme = {
+        colors = {
+          bg = "#000000";
+          green = "#00ff00";
+          magenta = "#ff00ff";
+        };
+        highlights = {
+          Comment = {
+            bg = "NONE";
+            fg = "#696969";
+            italic = true;
+          };
+        };
+      };
+      transparent = true;
+    };
 
     # Plugins telescope
     plugins.telescope.enable = true;
+    plugins.telescope.highlightTheme = "cyberdream";
     plugins.telescope.keymaps = {
       "<C-p>" = {
         action = "git_files";
@@ -49,6 +73,26 @@ in {
       "<leader>gt" = "git_status";
     };
     plugins.web-devicons.enable = true;
+    plugins.telescope.extensions.ui-select.enable = true;
+    plugins.telescope.extensions.ui-select.settings.keymaps = {
+      "<C-n>" = "cycle_history_next";
+      "<C-p>" = "cycle_history_prev";
+      "<C-j>" = "move_selection_next";
+      "<C-k>" = "move_selection_previous";
+    };
+    plugins.telescope.luaConfig.content = ''
+              local actions = require("telescope.actions")
+              require("telescope").setup({
+                  extensions = {
+                  ["ui-select"] = {
+                      require("telescope.themes").get_dropdown {}
+                  }
+              },
+                  require("telescope").load_extension("ui-select")
+              })
+      --        require("telescope").load_extension "macros"
+      --        vim.keymap.set("n", "<space>m", "<cmd>Telescope macros<cr>")
+    '';
 
     # Plugins lsp
     plugins.lsp.enable = true;
@@ -71,10 +115,10 @@ in {
       };
       lspBuf = {
         K = "hover";
-        gD = "references";
-        gd = "definition";
-        gi = "implementation";
-        gt = "type_definition";
+        cD = "references";
+        cd = "definition";
+        ci = "implementation";
+        ct = "type_definition";
       };
     };
 
@@ -93,11 +137,30 @@ in {
         timeout = 3000;
       };
     };
+    plugins.snacks.settings.config = {
+      header = [
+        "███╗   ██╗██╗██╗  ██╗██╗   ██╗██╗███╗   ███╗"
+        "████╗  ██║██║╚██╗██╔╝██║   ██║██║████╗ ████║"
+        "██╔██╗ ██║██║ ╚███╔╝ ██║   ██║██║██╔████╔██║"
+        "██║╚██╗██║██║ ██╔██╗ ╚██╗ ██╔╝██║██║╚██╔╝██║"
+        "██║ ╚████║██║██╔╝ ██╗ ╚████╔╝ ██║██║ ╚═╝ ██║"
+        "╚═╝  ╚═══╝╚═╝╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═╝     ╚═╝"
+      ];
+    };
 
     # Plugins nvim-cmp
-    plugins.cmp = {
-      enable = true;
-      autoEnableSources = true;
+    plugins.cmp.enable = true;
+    plugins.cmp.autoEnableSources = true;
+    plugins.cmp.settings.sources =
+      [ { name = "nvim_lsp"; } { name = "path"; } { name = "buffer"; } ];
+    plugins.cmp.settings.mapping = {
+      "<C-d>" = "cmp.mapping.scroll_docs(-4)";
+      "<C-f>" = "cmp.mapping.scroll_docs(4)";
+      "<C-Space>" = "cmp.mapping.complete()";
+      "<C-e>" = "cmp.mapping.close()";
+      "<C-j>" = "cmp.mapping(cmp.mapping.select_next_item(), {'i', 's'})";
+      "<C-k>" = "cmp.mapping(cmp.mapping.select_prev_item(), {'i', 's'})";
+      "<CR>" = "cmp.mapping.confirm({ select = true })";
     };
 
     # Plugin nvim-tree
@@ -109,14 +172,12 @@ in {
     plugins.neoscroll.enable = true;
     plugins.neoscroll.autoLoad = true;
     plugins.neoscroll.settings = {
-      mappings =
-        [ "<C-u>" "<C-d>" "<C-b>" "<C-f>" "<C-y>" "zt" "zz" "zb" "G" "gg" ];
-      easing_function = "easing";
-      performance_mode = true;
+      mappings = [ "<C-u>" "<C-d>" "<C-b>" "<C-f>" "<C-y>" "zt" "zz" "zb" ];
+      performance_mode = false;
     };
 
     # Dashboard
-    plugins.dashboard.enable = true;
+    # plugins.dashboard.enable = true;
 
     # Which key
     plugins.which-key.enable = true;
@@ -160,6 +221,50 @@ in {
       keymap_toggle = "<Leader>t";
       keymap_kill = "<Leader>fk";
     };
+
+    plugins.noice.enable = true;
+
+    plugins.indent-blankline.enable = true;
+
+    plugins.indent-blankline.settings.exclude.buftypes =
+      [ "terminal" "nofile" "quickfix" "prompt" "Dashboard" ];
+    plugins.indent-blankline.settings.exclude.filetypes = [
+      "Dashboard"
+      "lspinfo"
+      "packer"
+      "checkhealth"
+      "help"
+      "man"
+      "gitcommit"
+      "TelescopePrompt"
+      "TelescopeResults"
+      "''"
+    ];
+
+    plugins.lz-n.enable = true;
+
+    plugins.nvim-autopairs.enable = true;
+
+    plugins.treesitter.enable = true;
+    plugins.treesitter.grammarPackages =
+      with pkgs.vimPlugins.nvim-treesitter.builtGrammars; [
+        bash
+        json
+        lua
+        make
+        markdown
+        nix
+        regex
+        vim
+        vimdoc
+        xml
+        java
+        rust
+      ];
+    plugins.treesitter.settings.ensure_installed =
+      [ "nix" "vim" "lua" "java" "rust" "html" "css" "json" "tsx" ];
+
+    plugins.neocord.enable = true;
 
   };
 }
