@@ -65,22 +65,19 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs home-manager ; };
+        specialArgs = { inherit inputs home-manager; };
         modules = [
           nixos-wsl.nixosModules.default
           {
             system.stateVersion = "24.05";
             wsl.enable = true;
           }
-
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.nixos = {
-              imports = [
-                ./modules/home-manager/home.nix
-              ];
+              imports = [ ./modules/home-manager/home.nix ];
 
             };
           }
@@ -93,9 +90,8 @@
       homeConfigurations = {
         nixos = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [
-            ./modules/home-manager/home.nix
-          ];
+          modules = [ ./modules/home-manager/home.nix ];
+          extraSpecialArgs = {inherit inputs;};
         };
       };
 

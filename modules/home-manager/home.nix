@@ -1,7 +1,15 @@
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
-{
-  imports = [ ../../pkgs/nvim ];
+let
+    Link = config.lib.file.mkOutOfStoreSymlink;
+in{
+  imports = [ 
+    (import ../../pkgs/nvim { 
+        inherit pkgs;
+      } 
+    ) 
+    # ../../pkgs/nvim
+  ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";
@@ -64,6 +72,11 @@
 
     # Wait for understand
     # ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "/home/nixos/.config/nvim";
+
+    ".config/nvim-home" = {
+        source = Link ../../pkgs/nvim;
+        recursive = true; 
+    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -84,7 +97,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
-    GEMINI_API_KEY = "AIzaSyB2TKmx0pjELg6aEAmtkYCNkSx0o7mUfHA";
+    GEMINI_API_KEY = "";
   };
 
   # Chonsawat add new Programs
@@ -100,15 +113,16 @@
   programs.bash.bashrcExtra = ''
     alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
     alias nvim-nvchad="NVIM_APPNAME=NvChad nvim"
+    alias nvim-chonsawat="NVIM_APPNAME=nvim-chonsawat nvim"
   '';
   programs.bash.shellAliases = {
-    vi = "nvim";
-    vim = "nvim";
+    vi  = "nvim-chonsawat";
+    vim = "nvim-chonsawat";
   };
 
-  # Nixvim Config
-  programs.nixvim.enable = true;
-  programs.nixvim.viAlias = true;
+  # Neovim 
+  # Setup : ~/flake/pkgs/nvim/default.nix
+  programs.neovim.enable = true;
 
   services.ssh-agent.enable = true;
 

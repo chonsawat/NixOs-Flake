@@ -1,6 +1,26 @@
 local position = "bottomright"
 
 ---------------------------------------------------
+--  Hotkey Control
+---------------------------------------------------
+vim.keymap.set({ 'n', 't' }, '<A-n>', function()
+    vim.cmd(string.format('FloatermNew --position=%s', position))
+end, { desc = "Floating Terminal [N]ew" })
+
+vim.keymap.set({ 'n', 't' }, '<A-]>', '<cmd>FloatermNext<CR>', { desc = "Floating Terminal [N]ext" })
+vim.keymap.set({ 'n', 't' }, '<A-[>', '<cmd>FloatermPrev<CR>', { desc = "Floating Terminal [P]revious" })
+
+vim.keymap.set({ 'n', 't' }, '<A-\\>', function()
+    local exists = vim.fn["floaterm#buflist#gather"]()[1]
+    if exists ~= nil then
+        vim.cmd [[FloatermToggle]]
+    else
+        vim.cmd(string.format('FloatermNew --position=%s', position))
+    end
+end, { desc = "Floating Terminal [T]oggle" })
+vim.keymap.set({ 't' }, '<A-k>', '<cmd>FloatermKill<CR>', { desc = "Floating Terminal [K]ill" })
+
+---------------------------------------------------
 --  Run Rust
 ---------------------------------------------------
 vim.keymap.set({ 'n', 't' }, '<leader>rs', '<cmd>FloatermSend nix develop ~/flake/\\#rust<CR>', { desc =
