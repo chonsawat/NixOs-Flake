@@ -3,13 +3,7 @@
 let
     Link = config.lib.file.mkOutOfStoreSymlink;
 in{
-  imports = [ 
-    (import ../../pkgs/nvim { 
-        inherit pkgs;
-      } 
-    ) 
-    # ../../pkgs/nvim
-  ];
+  imports = [];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";
@@ -72,11 +66,6 @@ in{
 
     # Wait for understand
     # ".config/nvim".source = config.lib.file.mkOutOfStoreSymlink "/home/nixos/.config/nvim";
-
-    ".config/nvim-home" = {
-        source = Link ../../pkgs/nvim;
-        recursive = true; 
-    };
   };
 
   # Home Manager can also manage your environment variables through
@@ -114,14 +103,16 @@ in{
     alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
     alias nvim-nvchad="NVIM_APPNAME=NvChad nvim"
     alias nvim-chonsawat="NVIM_APPNAME=nvim-chonsawat nvim"
+    alias hms="home-manager switch --flake ~/flake -b backup-by-home-manager"
+    alias nsf="sudo nixos-rebuid switch --flake ~/flake"
   '';
   programs.bash.shellAliases = {
     vi  = "nvim-chonsawat";
     vim = "nvim-chonsawat";
+    hs = "home-manager switch --flake ~/flake -b backup-by-home-manager";
   };
 
   # Neovim 
-  # Setup : ~/flake/pkgs/nvim/default.nix
   programs.neovim.enable = true;
 
   services.ssh-agent.enable = true;
