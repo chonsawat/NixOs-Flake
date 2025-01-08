@@ -13,18 +13,28 @@
       url = "github:Mic92/nix-ld";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = { self, nixpkgs, nixpkgs_stable, nixos-wsl, home-manager, nix-ld
-    , ... }@inputs:
+    , nvf, ... }@inputs:
     let
+      system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.x86_64-linux;
       pkgs_unfree = import nixpkgs {
-        system = "x86_64-linux";
+        system = system;
         config.allowUnfree = true;
       };
       pkgs_stable = nixpkgs_stable.legacyPackages.x86_64-linux;
     in {
+
+      packages.${system}.default = (nvf.lib.neovimConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./pkgs/nvf/neovim_experimental.nix ];
+      }).neovim;
 
       devShells.x86_64-linux.default = pkgs.mkShell { buildInputs = [ ]; };
 
@@ -77,7 +87,10 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.nixos = {
-              imports = [ ./modules/home-manager/home.nix ];
+              imports = [
+                nvf.homeManagerModules.default
+                ./modules/home-manager/home.nix
+              ];
 
             };
           }
@@ -90,8 +103,9 @@
       homeConfigurations = {
         nixos = home-manager.lib.homeManagerConfiguration {
           inherit pkgs;
-          modules = [ ./modules/home-manager/home.nix ];
-          extraSpecialArgs = {inherit inputs;};
+          modules =
+            [ nvf.homeManagerModules.default ./modules/home-manager/home.nix ];
+          extraSpecialArgs = { inherit inputs; };
         };
       };
 

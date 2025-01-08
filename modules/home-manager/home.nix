@@ -1,9 +1,8 @@
 { config, pkgs, inputs, ... }:
 
-let
-    Link = config.lib.file.mkOutOfStoreSymlink;
-in{
-  imports = [];
+let Link = config.lib.file.mkOutOfStoreSymlink;
+in {
+  imports = [ ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";
@@ -60,22 +59,18 @@ in{
   programs.bash.enableCompletion = true;
   programs.bash.bashrcExtra = ''
     alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
-    alias nvim-nvchad="NVIM_APPNAME=NvChad nvim"
     alias nvim-chonsawat="NVIM_APPNAME=nvim-chonsawat nvim"
-    alias hms="home-manager switch --flake ~/flake -b backup-by-home-manager"
-    alias jsys="just system-rebuild"
-    alias jhms="just home-rebuild"
   '';
   programs.bash.shellAliases = {
-    vi  = "nvim-chonsawat";
     vim = "nvim-chonsawat";
     hs = "home-manager switch --flake ~/flake -b backup-by-home-manager";
     ss = "sudo nixos-rebuid switch --flake ~/flake";
-    j = "just";
   };
 
   # Neovim 
   programs.neovim.enable = true;
+  programs.nvf.enable = true;
+  programs.nvf.settings = { vim.viAlias = true; };
 
   services.ssh-agent.enable = true;
 
