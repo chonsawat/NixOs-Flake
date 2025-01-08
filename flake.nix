@@ -29,6 +29,7 @@
         config.allowUnfree = true;
       };
       pkgs_stable = nixpkgs_stable.legacyPackages.x86_64-linux;
+      modulePaths = builtins.toString ./.;
     in {
 
       packages.${system}.default = (nvf.lib.neovimConfiguration {
@@ -75,7 +76,7 @@
 
       nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit inputs home-manager; };
+        specialArgs = { inherit inputs home-manager modulePaths; };
         modules = [
           nixos-wsl.nixosModules.default
           {
@@ -105,7 +106,7 @@
           inherit pkgs;
           modules =
             [ nvf.homeManagerModules.default ./modules/home-manager/home.nix ];
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = { inherit inputs modulePaths; };
         };
       };
 

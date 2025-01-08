@@ -1,8 +1,8 @@
-{ config, pkgs, inputs, ... }:
+{ modulePaths, config, pkgs, inputs, ... }:
 
 let Link = config.lib.file.mkOutOfStoreSymlink;
 in {
-  imports = [ ];
+  imports = [ "${modulePaths}/pkgs/nvf/neovim.nix" ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";

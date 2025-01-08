@@ -7,9 +7,8 @@
 
   # Quick install 
   vim.dashboard.dashboard-nvim.enable = true;
-  vim.visuals.indent-blankline.enable = true;
-  vim.visuals.indent-blankline.setupOpts.scope.enabled = true;
-  # vim.visuals.indent-blankline.setupOpts.scope.exclude.vim.visuals.indent-blankline.setupOpts.scope.exclude.buftypes = ["terminal"];
+  # vim.visuals.indent-blankline.enable = true;
+  # vim.visuals.indent-blankline.setupOpts.scope.enabled = true;
 
   vim.visuals.nvim-cursorline.enable = true;
   vim.visuals.nvim-cursorline.setupOpts.cursorline.enable = true;
