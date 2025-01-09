@@ -85,15 +85,18 @@
           }
           home-manager.nixosModules.home-manager
           {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users.nixos = {
-              imports = [
-                nvf.homeManagerModules.default
-                ./modules/home-manager/home.nix
-              ];
+            home-manager = {
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.nixos = {
+                imports = [
+                  nvf.homeManagerModules.default
+                  ./modules/home-manager/home.nix
+                ];
+              };
 
             };
+            home-manager.extraSpecialArgs = { inherit modulePaths; };
           }
           nix-ld.nixosModules.nix-ld
           { programs.nix-ld.dev.enable = true; }

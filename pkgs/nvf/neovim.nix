@@ -1,10 +1,22 @@
-{ config, pkgs, inputs, ... }: {
+{pkgs, ...} : 
+{
+
+  imports = [ 
+    ./config/keymaps.nix 
+  ];
+
   programs.nvf.settings = {
 
-    vim.theme.enable = true;
-    vim.theme.name = "dracula";
-    # vim.theme.style = "darker";
-    vim.theme.transparent = true;
+    vim = {
+    theme = {
+      enable = true;
+      name = "dracula";
+      transparent = true;
+      # style = "darker";
+      };
+    };
+
+    vim.useSystemClipboard = true;
 
     # Quick install 
     vim.dashboard.dashboard-nvim.enable = true;
@@ -56,6 +68,22 @@
     vim.visuals.cinnamon-nvim.enable = true;
     vim.visuals.cinnamon-nvim.setupOpts.keymaps.basic = true;
     vim.visuals.cinnamon-nvim.setupOpts.keymaps.extra = true;
+
+    vim.terminal.toggleterm.enable = true;
+    vim.terminal.toggleterm.setupOpts.direction = "float";
+
+    vim.lazy.enable = true;
+    vim.lazy.plugins = {
+      ${pkgs.vimPlugins.vim-bbye.pname} = {
+        package = pkgs.vimPlugins.vim-bbye;
+        cmd = ["Bdelete" "Bwipeout"];
+      };
+
+      ${pkgs.vimPlugins.vim-floaterm.pname} = {
+        package = pkgs.vimPlugins.vim-floaterm;
+      };
+    };
+
   };
 
 }
