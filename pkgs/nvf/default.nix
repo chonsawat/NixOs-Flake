@@ -1,98 +1,184 @@
-{pkgs, ...} : 
+{ pkgs, ... }:
 {
 
-  imports = [ 
-    ./config/keymaps.nix 
-  ];
+  imports = [ ./config/keymaps.nix ];
 
   programs.nvf.settings = {
-
     vim = {
-    theme = {
-      enable = true;
-      name = "dracula";
-      transparent = true;
-      # style = "darker";
+
+      # ====================================================
+      # Settings
+      # ----------------------------------------------------
+      useSystemClipboard = true;
+      dashboard.dashboard-nvim.enable = true;
+      telescope.enable = true;
+      utility.motion.leap.enable = true;
+      treesitter.enable = true;
+      autocomplete.nvim-cmp.enable = true;
+      binds.whichKey.enable = true;
+      telescope.setupOpts.defaults.color_devicons = true;
+      comments.comment-nvim = {
+        enable = true;
+      };
+      ui.borders.plugins.nvim-cmp = {
+        enable = true;
+        style = "rounded";
+      };
+
+      # ====================================================
+      # AI assistance
+      # ----------------------------------------------------
+      # vim.assistant.copilot = {
+      #   enable = true;
+      #   cmp.enable = true;
+      # };
+
+      # ====================================================
+      # Themes
+      # ----------------------------------------------------
+      theme = {
+        enable = true;
+        name = "dracula";
+        transparent = true;
+        # style = "darker";
+      };
+
+      # ====================================================
+      # Language
+      # ----------------------------------------------------
+      languages = {
+        enableLSP = true;
+        enableTreesitter = true;
+
+        # ====================================================
+        # Java language
+        # ----------------------------------------------------
+        java = {
+          enable = true;
+          lsp.enable = true;
+          treesitter.enable = true;
+        };
+        html.treesitter.autotagHtml = true;
+
+        # ====================================================
+        # Nix language
+        # ----------------------------------------------------
+        nix = {
+          enable = true;
+          lsp.enable = true;
+          format.enable = true;
+          format.type = "nixfmt";
+          extraDiagnostics.enable = true;
+          treesitter.enable = true;
+        };
+      };
+
+      # ====================================================
+      #  Indent Blankline
+      # ----------------------------------------------------
+      visuals = {
+        # ====================================================
+        # Visual setiings
+        # ----------------------------------------------------
+        nvim-scrollbar.enable = true;
+        nvim-web-devicons.enable = true;
+        # ====================================================
+        # Indent Blankline
+        # ----------------------------------------------------
+        indent-blankline = {
+          enable = true;
+          setupOpts = {
+            scope = {
+              enabled = true;
+              exclude.node_type = {
+                "*" = [ "terminal" ];
+              };
+            };
+          };
+        };
+
+        # ====================================================
+        #  Cinnamon-nvim
+        # ----------------------------------------------------
+        cinnamon-nvim = {
+          enable = true;
+          setupOpts.keymaps = {
+            basic = true;
+            extra = true;
+          };
+        };
+
+        # ====================================================
+        # Nvim-Cursorline
+        # ----------------------------------------------------
+        nvim-cursorline = {
+          enable = true;
+          setupOpts = {
+            cursorline.enable = true;
+            cursorword = {
+              enable = true;
+              hl.underline = true;
+            };
+          };
+        };
+
+      };
+      # ====================================================
+      # Noice
+      # ----------------------------------------------------
+      ui.noice.enable = true;
+
+      # ====================================================
+      #  Toggle terminal
+      # ----------------------------------------------------
+      terminal.toggleterm.enable = true;
+      terminal.toggleterm.setupOpts.direction = "float";
+
+      # ====================================================
+      # Lualine
+      # ----------------------------------------------------
+      statusline.lualine.enable = true;
+      statusline.lualine.theme = "powerline";
+
+      # ====================================================
+      # Toggle terminal
+      # ----------------------------------------------------
+      filetree = {
+        nvimTree = {
+          enable = true;
+          openOnSetup = true;
+          setupOpts = {
+            actions.change_dir.enable = true;
+            renderer.highlight_git = true;
+            renderer.indent_markers.enable = true;
+            updateFocusedFile.updateRoot = true;
+            sync_root_with_cwd = true;
+            actions.open_file.resize_window = true;
+            tab.sync.close = true;
+          };
+          git.enable = true;
+        };
+      };
+      # vim.filetree.nvimTree.setupOpts.renderer.icons.show.modified = true;
+      # vim.filetree.nvimTree.setupOpts.view.float.enable = true;
+
+      # ====================================================
+      #  Lazy Plugins
+      # ----------------------------------------------------
+      lazy.enable = true;
+      lazy.plugins = {
+        ${pkgs.vimPlugins.vim-bbye.pname} = {
+          package = pkgs.vimPlugins.vim-bbye;
+          cmd = [
+            "Bdelete"
+            "Bwipeout"
+          ];
+        };
+
+        ${pkgs.vimPlugins.vim-floaterm.pname} = {
+          package = pkgs.vimPlugins.vim-floaterm;
+        };
       };
     };
-
-    vim.useSystemClipboard = true;
-
-    # Quick install 
-    vim.dashboard.dashboard-nvim.enable = true;
-    # vim.visuals.indent-blankline.enable = true;
-    # vim.visuals.indent-blankline.setupOpts.scope.enabled = true;
-    # vim.visuals.indent-blankline.setupOpts.scope.exclude.vim.visuals.indent-blankline.setupOpts.scope.exclude.buftypes = ["terminal"];
-
-    vim.visuals.nvim-cursorline.enable = true;
-    vim.visuals.nvim-cursorline.setupOpts.cursorline.enable = true;
-    vim.visuals.nvim-cursorline.setupOpts.cursorword.enable = true;
-    vim.visuals.nvim-cursorline.setupOpts.cursorword.hl.underline = true;
-
-    vim.visuals.nvim-scrollbar.enable = true;
-
-    vim.ui.noice.enable = true;
-
-    vim.statusline.lualine.enable = true;
-    vim.statusline.lualine.theme = "powerline";
-
-    vim.telescope.enable = true;
-    vim.utility.motion.leap.enable = true;
-
-    vim.treesitter.enable = true;
-
-    vim.autocomplete.nvim-cmp.enable = true;
-
-    vim.languages.enableLSP = true;
-    vim.languages.enableTreesitter = true;
-
-    vim.languages.nix.enable = true;
-    vim.languages.nix.lsp.enable = true;
-    vim.languages.nix.format.enable = true;
-    vim.languages.nix.format.type = "nixfmt";
-    vim.languages.nix.extraDiagnostics.enable = true;
-    vim.languages.nix.treesitter.enable = true;
-
-    vim.languages.java.enable = true;
-    vim.languages.java.lsp.enable = true;
-    vim.languages.java.treesitter.enable = true;
-    vim.languages.html.treesitter.autotagHtml = true;
-
-    vim.filetree.nvimTree.enable = true;
-    vim.filetree.nvimTree.openOnSetup = true;
-    vim.filetree.nvimTree.setupOpts.actions.change_dir.enable = true;
-    vim.filetree.nvimTree.git.enable = true;
-    vim.filetree.nvimTree.setupOpts.renderer.highlight_git = true;
-    # vim.filetree.nvimTree.setupOpts.renderer.icons.show.modified = true;
-    vim.filetree.nvimTree.setupOpts.renderer.indent_markers.enable = true;
-    vim.filetree.nvimTree.setupOpts.updateFocusedFile.updateRoot = true;
-    vim.filetree.nvimTree.setupOpts.sync_root_with_cwd = true;
-    vim.filetree.nvimTree.setupOpts.actions.open_file.resize_window = true;
-    # vim.filetree.nvimTree.setupOpts.view.float.enable = true;
-
-    vim.binds.whichKey.enable = true;
-    vim.visuals.nvim-web-devicons.enable = true;
-    vim.telescope.setupOpts.defaults.color_devicons = true;
-
-    vim.visuals.cinnamon-nvim.enable = true;
-    vim.visuals.cinnamon-nvim.setupOpts.keymaps.basic = true;
-    vim.visuals.cinnamon-nvim.setupOpts.keymaps.extra = true;
-
-    vim.terminal.toggleterm.enable = true;
-    vim.terminal.toggleterm.setupOpts.direction = "float";
-
-    vim.lazy.enable = true;
-    vim.lazy.plugins = {
-      ${pkgs.vimPlugins.vim-bbye.pname} = {
-        package = pkgs.vimPlugins.vim-bbye;
-        cmd = ["Bdelete" "Bwipeout"];
-      };
-
-      ${pkgs.vimPlugins.vim-floaterm.pname} = {
-        package = pkgs.vimPlugins.vim-floaterm;
-      };
-    };
-
   };
-
 }

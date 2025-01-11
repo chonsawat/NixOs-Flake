@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   programs.nvf.settings = {
 
     # Keymaps commons
@@ -58,12 +57,8 @@
       }
       {
         key = "<leader>p";
-        mode = [
-          "n"
-          "v"
-          "i"
-        ];
-        action = "\"_dP";
+        mode = [ "n" "v" "i" ];
+        action = ''"_dP'';
         desc = "Paste without clear (lastest copied)";
       }
 
@@ -72,34 +67,22 @@
       # -------------------------------------------
       {
         key = "<C-Up>";
-        mode = [
-          "n"
-          "t"
-        ];
+        mode = [ "n" "t" ];
         action = "<cmd>resize -2<CR>";
       }
       {
         key = "<C-Down>";
-        mode = [
-          "n"
-          "t"
-        ];
+        mode = [ "n" "t" ];
         action = "<cmd>resize +2<CR>";
       }
       {
         key = "<C-Left>";
-        mode = [
-          "n"
-          "t"
-        ];
+        mode = [ "n" "t" ];
         action = "<cmd>vertical resize -2<CR>";
       }
       {
         key = "<C-Right>";
-        mode = [
-          "n"
-          "t"
-        ];
+        mode = [ "n" "t" ];
         action = "<cmd>vertical resize +2<CR>";
       }
 
@@ -138,16 +121,11 @@
     #  Java maven
     # -------------------------------------------
     vim.lazy.plugins.${pkgs.vimPlugins.vim-floaterm.pname}.keys =
-      let
-        position = "bottomright";
-      in
-      [
+      let position = "bottomright";
+      in [
 
         {
-          mode = [
-            "n"
-            "t"
-          ];
+          mode = [ "n" "t" ];
           key = "<A-\\>";
           lua = true;
           action = ''
@@ -162,34 +140,22 @@
           '';
         }
         {
-          mode = [
-            "n"
-            "t"
-          ];
+          mode = [ "n" "t" ];
           key = "<A-]>";
           action = "<cmd>FloatermNext<CR>";
         }
         {
-          mode = [
-            "n"
-            "t"
-          ];
+          mode = [ "n" "t" ];
           key = "<A-[>";
           action = "<cmd>FloatermPrev<CR>";
         }
         {
-          mode = [
-            "n"
-            "t"
-          ];
+          mode = [ "n" "t" ];
           key = "<A-k>";
           action = "<cmd>FloatermKill<CR>";
         }
         {
-          mode = [
-            "n"
-            "t"
-          ];
+          mode = [ "n" "t" ];
           key = "<A-t>";
           action = "<cmd>FloatermNew --position=${position}<CR>";
         }

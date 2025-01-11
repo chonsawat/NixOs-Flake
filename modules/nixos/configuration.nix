@@ -2,21 +2,21 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, inputs, ... }:
+{ modulePaths, pkgs, ... }:
 
 {
   imports = [
-    ../../pkgs/code/java.nix
-    ../../pkgs/code/node_js.nix
-    ../../pkgs/code/vscode_server.nix
-    ../../pkgs/code/c-compiler.nix
+    "${modulePaths}/pkgs/systems/java.nix"
+    "${modulePaths}/pkgs/systems/node_js.nix"
+    "${modulePaths}/pkgs/systems/vscode_server.nix"
+    "${modulePaths}/pkgs/systems/c-compiler.nix"
   ];
 
-  environment.systemPackages = with pkgs; [ wget git unzip tree home-manager ];
-
-  environment.variables = { };
-
-  environment.shellAliases = { };
+  environment = {
+    systemPackages = with pkgs; [ wget git unzip tree home-manager ];
+    variables = { };
+    shellAliases = { };
+  };
 
   # Allow un-free package
   # nixpkgs.config = { allowUnfree = true; };

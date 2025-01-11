@@ -1,9 +1,6 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
 
-  imports = [
-    (import ./config/keymaps.nix).programs.nvf.settings
-  ];
+  imports = [ (import ./config/keymaps.nix).programs.nvf.settings ];
 
   vim = {
     theme = {
@@ -74,10 +71,7 @@
   vim.lazy.plugins = {
     ${pkgs.vimPlugins.vim-bbye.pname} = {
       package = pkgs.vimPlugins.vim-bbye;
-      cmd = [
-        "Bdelete"
-        "Bwipeout"
-      ];
+      cmd = [ "Bdelete" "Bwipeout" ];
     };
 
     ${pkgs.vimPlugins.vim-floaterm.pname} = {

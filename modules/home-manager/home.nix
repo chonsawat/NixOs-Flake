@@ -3,15 +3,12 @@
 let Link = config.lib.file.mkOutOfStoreSymlink;
 in {
   imports = [ "${modulePaths}/pkgs/nvf/default.nix" ];
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
-  home.username = "nixos";
-  home.homeDirectory = "/home/nixos";
 
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.11"; # Please read the comment before changing.
+  home = {
+    username = "nixos";
+    homeDirectory = "/home/nixos";
+    stateVersion = "24.11"; # Please read the comment before changing.
+  };
 
   home.packages = with pkgs; [
 
@@ -45,9 +42,12 @@ in {
   home.sessionVariables = {
     # EDITOR = "emacs";
     GEMINI_API_KEY = "";
+    # NVIM_APP = "";
   };
 
+  # ====================================
   # Chonsawat add new Programs
+  # ====================================
   programs.git.enable = true;
   programs.git.userName = "chonsawat";
   programs.git.userEmail = "chonsawat.nakanam@kkumail.com";
