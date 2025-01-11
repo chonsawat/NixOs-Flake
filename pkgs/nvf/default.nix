@@ -11,18 +11,30 @@
       # ----------------------------------------------------
       useSystemClipboard = true;
       dashboard.dashboard-nvim.enable = true;
-      telescope.enable = true;
       utility.motion.leap.enable = true;
       treesitter.enable = true;
       autocomplete.nvim-cmp.enable = true;
       binds.whichKey.enable = true;
-      telescope.setupOpts.defaults.color_devicons = true;
       comments.comment-nvim = {
         enable = true;
       };
       ui.borders.plugins.nvim-cmp = {
         enable = true;
         style = "rounded";
+      };
+
+      # ====================================================
+      # Telescope
+      # ----------------------------------------------------
+      telescope = {
+        enable = true;
+        setupOpts = {
+          defaults = {
+            color_devicons = true;
+            layout_config.vertical.mirror = true;
+            winblend = 1;
+          };
+        };
       };
 
       # ====================================================
@@ -123,10 +135,17 @@
         };
 
       };
+
       # ====================================================
       # Noice
       # ----------------------------------------------------
-      ui.noice.enable = true;
+      ui = {
+        noice = {
+          enable = true;
+          setupOpts.lsp.signature.enabled = true;
+          setupOpts.presets.lsp_doc_border = true;
+        };
+      };
 
       # ====================================================
       #  Toggle terminal
@@ -155,12 +174,22 @@
             sync_root_with_cwd = true;
             actions.open_file.resize_window = true;
             tab.sync.close = true;
+            git.enable = true;
           };
-          git.enable = true;
         };
       };
       # vim.filetree.nvimTree.setupOpts.renderer.icons.show.modified = true;
       # vim.filetree.nvimTree.setupOpts.view.float.enable = true;
+
+      # ====================================================
+      #  Set Loading Sequence
+      # ----------------------------------------------------
+      extraPlugins = with pkgs.vimPlugins; {
+        indent-blankline-nvim = {
+          package = indent-blankline-nvim;
+          after = [ "dashboard-nvim" ];
+        };
+      };
 
       # ====================================================
       #  Lazy Plugins
