@@ -2,7 +2,7 @@
 
 let Link = config.lib.file.mkOutOfStoreSymlink;
 in {
-  imports = [ "${modulePaths}/pkgs/nvf/neovim.nix" ];
+  imports = [ "${modulePaths}/pkgs/nvf/default.nix" ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "nixos";

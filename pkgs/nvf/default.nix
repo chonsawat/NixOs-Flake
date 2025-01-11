@@ -59,7 +59,16 @@
     vim.languages.html.treesitter.autotagHtml = true;
 
     vim.filetree.nvimTree.enable = true;
-    vim.filetree.nvimTree.openOnSetup = false;
+    vim.filetree.nvimTree.openOnSetup = true;
+    vim.filetree.nvimTree.setupOpts.actions.change_dir.enable = true;
+    vim.filetree.nvimTree.git.enable = true;
+    vim.filetree.nvimTree.setupOpts.renderer.highlight_git = true;
+    # vim.filetree.nvimTree.setupOpts.renderer.icons.show.modified = true;
+    vim.filetree.nvimTree.setupOpts.renderer.indent_markers.enable = true;
+    vim.filetree.nvimTree.setupOpts.updateFocusedFile.updateRoot = true;
+    vim.filetree.nvimTree.setupOpts.sync_root_with_cwd = true;
+    vim.filetree.nvimTree.setupOpts.actions.open_file.resize_window = true;
+    # vim.filetree.nvimTree.setupOpts.view.float.enable = true;
 
     vim.binds.whichKey.enable = true;
     vim.visuals.nvim-web-devicons.enable = true;

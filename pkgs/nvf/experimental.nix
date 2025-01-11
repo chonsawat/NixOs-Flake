@@ -1,14 +1,26 @@
-{ config, pkgs, inputs, ... }: {
+{ pkgs, ... }:
+{
 
-  vim.theme.enable = true;
-  vim.theme.name = "dracula";
-  # vim.theme.style = "darker";
-  vim.theme.transparent = true;
+  imports = [
+    (import ./config/keymaps.nix).programs.nvf.settings
+  ];
 
-  # Quick install 
+  vim = {
+    theme = {
+      enable = true;
+      name = "dracula";
+      transparent = true;
+      # style = "darker";
+    };
+  };
+
+  vim.useSystemClipboard = true;
+
+  # Quick install
   vim.dashboard.dashboard-nvim.enable = true;
   # vim.visuals.indent-blankline.enable = true;
   # vim.visuals.indent-blankline.setupOpts.scope.enabled = true;
+  # vim.visuals.indent-blankline.setupOpts.scope.exclude.vim.visuals.indent-blankline.setupOpts.scope.exclude.buftypes = ["terminal"];
 
   vim.visuals.nvim-cursorline.enable = true;
   vim.visuals.nvim-cursorline.setupOpts.cursorline.enable = true;
@@ -55,4 +67,23 @@
   vim.visuals.cinnamon-nvim.setupOpts.keymaps.basic = true;
   vim.visuals.cinnamon-nvim.setupOpts.keymaps.extra = true;
 
+  vim.terminal.toggleterm.enable = true;
+  vim.terminal.toggleterm.setupOpts.direction = "float";
+
+  vim.lazy.enable = true;
+  vim.lazy.plugins = {
+    ${pkgs.vimPlugins.vim-bbye.pname} = {
+      package = pkgs.vimPlugins.vim-bbye;
+      cmd = [
+        "Bdelete"
+        "Bwipeout"
+      ];
+    };
+
+    ${pkgs.vimPlugins.vim-floaterm.pname} = {
+      package = pkgs.vimPlugins.vim-floaterm;
+    };
+  };
+
 }
+

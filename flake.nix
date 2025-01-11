@@ -34,7 +34,7 @@
 
       packages.${system}.default = (nvf.lib.neovimConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
-        modules = [ ./pkgs/nvf/neovim_experimental.nix ];
+        modules = [ ./pkgs/nvf/experimental.nix ];
       }).neovim;
 
       devShells.x86_64-linux.default = pkgs.mkShell { buildInputs = [ ]; };
