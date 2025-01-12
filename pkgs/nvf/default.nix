@@ -170,7 +170,6 @@
             actions.change_dir.enable = true;
             renderer.highlight_git = true;
             renderer.indent_markers.enable = true;
-            updateFocusedFile.updateRoot = true;
             sync_root_with_cwd = true;
             actions.open_file.resize_window = true;
             tab.sync.close = true;
