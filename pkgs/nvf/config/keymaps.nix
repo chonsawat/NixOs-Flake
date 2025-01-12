@@ -114,6 +114,21 @@
         action = ":m '<-2<CR>gv=gv";
       }
 
+      # ===========================================
+      #  Move Left / Right
+      # -------------------------------------------
+      {
+        key = "<";
+        mode = [ "v" ];
+        action = "<gv";
+        desc = "Indent left (in visual mode)";
+      }
+      {
+        key = ">";
+        mode = [ "v" ];
+        action = ">gv";
+        desc = "Indent right (in visual mode)";
+      }
     ];
 
     # Plugins Keymaps

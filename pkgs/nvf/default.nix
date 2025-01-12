@@ -1,16 +1,23 @@
 { pkgs, ... }:
 {
 
-  imports = [ ./config/keymaps.nix ];
+  imports = [
+    ./config/keymaps.nix
+  ];
 
   programs.nvf.settings = {
+
+    imports = [
+      (import ./plugins/oil.nix { inherit pkgs; })
+    ];
+
     vim = {
 
       # ====================================================
       # Settings
       # ----------------------------------------------------
       useSystemClipboard = true;
-      dashboard.dashboard-nvim.enable = true;
+      # dashboard.dashboard-nvim.enable = true;
       utility.motion.leap.enable = true;
       treesitter.enable = true;
       autocomplete.nvim-cmp.enable = true;
@@ -165,7 +172,7 @@
       filetree = {
         nvimTree = {
           enable = true;
-          openOnSetup = true;
+          openOnSetup = false;
           setupOpts = {
             actions.change_dir.enable = true;
             renderer.highlight_git = true;
@@ -183,12 +190,12 @@
       # ====================================================
       #  Set Loading Sequence
       # ----------------------------------------------------
-      extraPlugins = with pkgs.vimPlugins; {
-        indent-blankline-nvim = {
-          package = indent-blankline-nvim;
-          after = [ "dashboard-nvim" ];
-        };
-      };
+      # extraPlugins = with pkgs.vimPlugins; {
+      #   indent-blankline-nvim = {
+      #     package = indent-blankline-nvim;
+      #     after = [ "dashboard-nvim" ];
+      #   };
+      # };
 
       # ====================================================
       #  Lazy Plugins
