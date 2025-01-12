@@ -8,7 +8,7 @@
   programs.nvf.settings = {
 
     imports = [
-      (import ./plugins/oil.nix { inherit pkgs; })
+      (import ./plugins/oil { inherit pkgs; })
     ];
 
     vim = {
