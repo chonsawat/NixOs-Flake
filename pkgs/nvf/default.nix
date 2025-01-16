@@ -8,10 +8,20 @@
   programs.nvf.settings = {
 
     imports = [
+      (import ./config/visuals)
       (import ./plugins/oil { inherit pkgs; })
-      (import ./plugins/gitsign { inherit pkgs; })
-      (import ./plugins/notify { inherit pkgs; })
-      (import ./plugins/telescope { inherit pkgs; })
+      (import ./plugins/gitsign)
+      (import ./plugins/noice)
+      (import ./plugins/notify)
+      (import ./plugins/telescope)
+      (import ./plugins/lsp)
+      (import ./plugins/indent-blankline)
+      (import ./plugins/cinnamon)
+      (import ./plugins/cursorline)
+      (import ./plugins/nvimTree)
+      (import ./plugins/toggleterm)
+      (import ./plugins/lualine)
+      (import ./plugins/lazy { inherit pkgs; })
       (import ./themes/cyberdream { inherit pkgs; })
     ];
 
