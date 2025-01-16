@@ -1,0 +1,5 @@
+JustFile
+Makefile
+
+./**/*.*~
+

@@ -1,0 +1,14 @@
+_: {
+  vim = {
+    notify = {
+      nvim-notify = {
+        enable = true;
+        setupOpts = {
+          position = "bottom_left";
+          render = "minimal";
+          timeout = 500;
+        };
+      };
+    };
+  };
+}
