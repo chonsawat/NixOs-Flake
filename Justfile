@@ -28,13 +28,13 @@ clean:
 
 # Workspace
 workspace-java:
-	nvim /mnt/d/Coding_spaces/Java/
+	cd /mnt/d/Coding_spaces/Java/
 
 workspace-rust:
-	nvim /mnt/d/Coding_spaces/Rust/
+	cd /mnt/d/Coding_spaces/Rust/
 
 nvim-config:
-	nvim ~/.config/nvim
+	cd ~/.config/nvim
 
 flake-config:
-	nvim ~/flake
+	cd ~/flake

@@ -6,6 +6,7 @@ let
   experiment = {
     imports = [
       (import ./plugins/oil { inherit pkgs; })
+      (import ./plugins/gitsign { inherit pkgs; })
     ];
     vim.lazy.plugins = with pkgs.vimPlugins; {
       ${snacks-nvim.pname} = {

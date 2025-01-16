@@ -9,6 +9,7 @@
 
     imports = [
       (import ./plugins/oil { inherit pkgs; })
+      (import ./plugins/gitsign { inherit pkgs; })
     ];
 
     vim = {
@@ -28,6 +29,12 @@
       ui.borders.plugins.nvim-cmp = {
         enable = true;
         style = "rounded";
+      };
+
+      options = {
+        shiftwidth = 2;
+        tabstop = 2;
+        wrap = false;
       };
 
       # ====================================================
@@ -172,20 +179,16 @@
       filetree = {
         nvimTree = {
           enable = true;
-          openOnSetup = true;
+          openOnSetup = false;
           setupOpts = {
             actions.change_dir.enable = true;
             renderer.highlight_git = true;
             renderer.indent_markers.enable = true;
             sync_root_with_cwd = true;
-            actions.open_file.resize_window = true;
-            tab.sync.close = true;
             git.enable = true;
           };
         };
       };
-      # vim.filetree.nvimTree.setupOpts.renderer.icons.show.modified = true;
-      # vim.filetree.nvimTree.setupOpts.view.float.enable = true;
 
       # ====================================================
       #  Set Loading Sequence
