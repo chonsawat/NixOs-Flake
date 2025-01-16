@@ -62,13 +62,13 @@
       # ====================================================
       # Themes
       # ----------------------------------------------------
-      theme = {
-        enable = true;
-        # name = "dracula";
-        name = "gruvbox";
-        transparent = true;
-        style = "dark";
-      };
+      # theme = {
+      #   enable = true;
+      #   # name = "dracula";
+      #   name = "gruvbox";
+      #   transparent = true;
+      #   style = "dark";
+      # };
 
       # ====================================================
       # Language

@@ -10,6 +10,8 @@
     imports = [
       (import ./plugins/oil { inherit pkgs; })
       (import ./plugins/gitsign { inherit pkgs; })
+      (import ./plugins/notify { inherit pkgs; })
+      (import ./themes/cyberdream { inherit pkgs; })
     ];
 
     vim = {
