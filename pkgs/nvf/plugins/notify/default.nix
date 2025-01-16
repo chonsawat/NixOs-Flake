@@ -1,4 +1,4 @@
-_: {
+{
   vim = {
     notify = {
       nvim-notify = {
@@ -6,6 +6,7 @@ _: {
         setupOpts = {
           position = "bottom_left";
           timeout = 500;
+          stages = "static";
         };
       };
     };

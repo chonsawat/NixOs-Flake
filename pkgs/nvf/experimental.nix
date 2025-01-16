@@ -1,36 +1,32 @@
 { pkgs, lib, ... }:
 let
-  xx = import ./config/keymaps.nix { inherit pkgs; };
+  xx = import ./config/keymaps { inherit pkgs; };
   xy = import ./default.nix { inherit pkgs; };
 
   experiment = {
     imports = [
+      (import ./config/visuals)
       (import ./plugins/oil { inherit pkgs; })
-      (import ./plugins/gitsign { inherit pkgs; })
-      (import ./plugins/notify { inherit pkgs; })
+      (import ./plugins/gitsign)
+      (import ./plugins/noice)
+      (import ./plugins/notify)
+      (import ./plugins/telescope)
+      (import ./plugins/lsp)
+      (import ./plugins/indent-blankline)
+      (import ./plugins/cinnamon)
+      (import ./plugins/cursorline)
+      (import ./plugins/nvimTree)
+      (import ./plugins/toggleterm)
+      (import ./plugins/lualine)
+      (import ./plugins/lazy { inherit pkgs; })
       (import ./themes/cyberdream { inherit pkgs; })
     ];
     vim.lazy.plugins = with pkgs.vimPlugins; {
       ${snacks-nvim.pname} = {
         package = snacks-nvim;
         enabled = true;
-        
-        # after = ''
-        #   local Snacks = require("snacks")
-        #   print(string.format("Snacks was loadding ... %s", Snacks.did_setup))
-        #   Snacks.setup({dashboard = {enabled = true}})
-        #   for key,value in pairs(Snacks) do
-        #     print("Found member: " .. key)
-        #   end
-        #   for k,v in pairs(Snacks.config) do
-        #       print(k.." = "..v)
-        #   end
-        #   print(string.format("Snacks was loadding ... %s", Snacks.did_setup))
-        #   print(string.format("Snacks was loadding enter ... %s", Snacks.did_setup_after_vim_enter))
-        # '';
       };
     };
-
   };
 
   default = lib.attrsets.recursiveUpdate xx.programs.nvf.settings xy.programs.nvf.settings;

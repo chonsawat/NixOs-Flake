@@ -1,0 +1,9 @@
+{
+  # ====================================================
+  # Visual setiings
+  # ----------------------------------------------------
+  visuals = {
+    nvim-scrollbar.enable = true;
+    nvim-web-devicons.enable = true;
+  };
+}
