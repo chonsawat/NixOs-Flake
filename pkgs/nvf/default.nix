@@ -9,6 +9,7 @@
 
     imports = [
       (import ./config/visuals)
+      (import ./config/options)
       (import ./plugins/oil { inherit pkgs; })
       (import ./plugins/gitsign)
       (import ./plugins/noice)
@@ -42,12 +43,6 @@
       ui.borders.plugins.nvim-cmp = {
         enable = true;
         style = "rounded";
-      };
-
-      options = {
-        shiftwidth = 2;
-        tabstop = 2;
-        wrap = false;
       };
 
       # ====================================================

@@ -6,6 +6,7 @@ let
   experiment = {
     imports = [
       (import ./config/visuals)
+      (import ./config/options)
       (import ./plugins/oil { inherit pkgs; })
       (import ./plugins/gitsign)
       (import ./plugins/noice)
