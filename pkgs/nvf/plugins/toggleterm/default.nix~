@@ -1,7 +1,0 @@
-{
-  # ====================================================
-  #  Toggle terminal
-  # ----------------------------------------------------
-  terminal.toggleterm.enable = true;
-  terminal.toggleterm.setupOpts.direction = "float";
-}

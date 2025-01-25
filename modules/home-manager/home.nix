@@ -1,7 +1,15 @@
-{ modulePaths, config, pkgs, inputs, ... }:
+{
+  modulePaths,
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
-let Link = config.lib.file.mkOutOfStoreSymlink;
-in {
+let
+  Link = config.lib.file.mkOutOfStoreSymlink;
+in
+{
   imports = [ "${modulePaths}/pkgs/nvf/default.nix" ];
 
   home = {
@@ -21,12 +29,14 @@ in {
     gnumake
     zig
     just
+    lua
 
     # Application
-    firefox
+    # firefox
 
     # # Override font
     # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
+    # redis
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -38,7 +48,7 @@ in {
 
   # Home Manager can also manage your environment variables through
   # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager.   
+  # shell provided by Home Manager.
   home.sessionVariables = {
     # EDITOR = "emacs";
     GEMINI_API_KEY = "";
@@ -48,35 +58,44 @@ in {
   # ====================================
   # Chonsawat add new Programs
   # ====================================
-  programs.git.enable = true;
-  programs.git.userName = "chonsawat";
-  programs.git.userEmail = "chonsawat.nakanam@kkumail.com";
+  programs.git = {
+    enable = true;
+    userName = "chonsawat";
+    userEmail = "chonsawat.nakanam@kkumail.com";
+  };
 
   programs.fzf.enable = true;
   programs.starship.enable = true;
 
-  programs.bash.enable = true;
-  programs.bash.enableCompletion = true;
-  programs.bash.bashrcExtra = ''
-    alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
-    alias nvim-chonsawat="NVIM_APPNAME=nvim-chonsawat nvim"
-  '';
-  programs.bash.shellAliases = {
-    vim = "nvim-chonsawat";
-    hs = "home-manager switch --flake ~/flake -b backup-by-home-manager";
-    ss = "sudo nixos-rebuid switch --flake ~/flake";
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+    bashrcExtra = ''
+      alias nvim-bk="NVIM_APPNAME=Backup-nvim nvim"
+      alias nvim-chonsawat="NVIM_APPNAME=nvim-chonsawat nvim"
+    '';
+    shellAliases = {
+      vim = "nvim-chonsawat";
+      hs = "home-manager switch --flake ~/flake -b backup-by-home-manager";
+      ss = "sudo nixos-rebuid switch --flake ~/flake";
+    };
   };
 
-  # Neovim 
+  # Neovim
   programs.neovim.enable = true;
   programs.nvf.enable = true;
-  programs.nvf.settings = { vim.viAlias = true; };
+  programs.nvf.settings = {
+    vim.viAlias = true;
+  };
+
+  programs.ssh.enable = true;
+  # programs.dev.docker.enable = true;
+  # programs.k8s.enable = true;
 
   services.ssh-agent.enable = true;
 
   nixpkgs.config = {
-    allowUnfreePredicate = pkg:
-      builtins.elem (pkgs.lib.getName pkg) [ "discord" ];
+    allowUnfreePredicate = pkg: builtins.elem (pkgs.lib.getName pkg) [ "discord" ];
   };
 
   # Let Home Manager install and manage itself.

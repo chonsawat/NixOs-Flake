@@ -56,7 +56,7 @@
         desc = "Exit Terminal";
       }
       {
-        key = "<leader>p";
+        key = "P";
         mode = [ "n" "v" "i" ];
         action = ''"_dP'';
         desc = "Paste without clear (lastest copied)";

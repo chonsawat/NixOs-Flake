@@ -4,4 +4,6 @@
     tabstop = 2;
     wrap = false;
   };
+
+  vim.preventJunkFiles = true;
 }

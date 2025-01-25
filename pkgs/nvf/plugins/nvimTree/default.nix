@@ -5,7 +5,7 @@
   vim.filetree = {
     nvimTree = {
       enable = true;
-      openOnSetup = false;
+      openOnSetup = true;
       setupOpts = {
         actions.change_dir.enable = true;
         renderer.highlight_git = true;

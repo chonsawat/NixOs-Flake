@@ -1,7 +1,0 @@
-{
-  # ====================================================
-  # Lualine
-  # ----------------------------------------------------
-  statusline.lualine.enable = true;
-  statusline.lualine.theme = "powerline";
-}

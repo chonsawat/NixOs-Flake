@@ -13,7 +13,13 @@
   ];
 
   environment = {
-    systemPackages = with pkgs; [ wget git unzip tree home-manager ];
+    systemPackages = with pkgs; [
+      wget
+      git
+      unzip
+      tree
+      home-manager
+    ];
     variables = { };
     shellAliases = { };
   };
@@ -30,8 +36,40 @@
   #     libgit2
   #   ];
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
+  services.jenkins = {
+    enable = true;
+    withCLI = true;
+  };
+  services.nginx = {
+    enable = true;
+    recommendedGzipSettings = true;
+    recommendedOptimisation = true;
+    virtualHosts = {
+      jenkins = {
+        serverName = "cjenkins.com";
+        serverAliases = [ "cjk.com" ];
+        # forceSSL = true;
+        # enableACME = true;
+        locations = {
+          "/" = {
+            proxyPass = "http://chonsawat.com:8080/";
+          };
+        };
+      };
+    };
+  };
+  # services.tomcat.enable = true;
+  security.acme.acceptTerms = true;
+  security.acme.defaults.email = "chonsawat.nakanam@kkumail.com";
   # services.openssh.enable = true;
-
+  networking.firewall.enable = true;
+  networking.firewall.allowedTCPPorts = [
+    80
+    443
+  ];
 }
